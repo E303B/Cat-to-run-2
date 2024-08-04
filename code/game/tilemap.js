@@ -6,10 +6,16 @@ class TileMap {
         this.width = width;
         this.height = height;
         this.tileMap = [];
-        for (let x = 0; x < width; x++) {
+        this.tileMap[0] = [];
+        for (let y = 0; y < height; y++)this.tileMap[0][y] = new Tile("#525452");
+        for (let x = 1; x < width - 1; x++) {
             this.tileMap[x] = [];
-            for (let y = 0; y < height; y++)this.tileMap[x][y] = new Tile("#2dc416");
+            this.tileMap[x][0] = new Tile("#525452");
+            for (let y = 1; y < height - 1; y++)this.tileMap[x][y] = new Tile("#2dc416");
+            this.tileMap[x][height - 1] = new Tile("#525452");
         }
+        this.tileMap[width - 1] = [];
+        for (let y = 0; y < height; y++)this.tileMap[width - 1][y] = new Tile("#525452");
     }
     getTile(x, y) {
         x = Math.round(x);
