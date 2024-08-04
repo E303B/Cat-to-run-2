@@ -18,10 +18,10 @@ document.onmousemove = function (event) {
     mouseX = event.x;
     mouseY = event.y;
 }
-const keysPressed = []
+let keysPressed = []
 document.onkeydown = function (event) {
     if (!keysPressed.includes(event.key)) keysPressed.push(event.key);
 }
 document.onkeyup = function (event) {
-    if (keysPressed.includes(event.key)) keysPressed = keysPressed.slice(0, keysPressed.indexOf(event.key)) + keysPressed.slice(keysPressed.indexOf(event.key) + 1);
+    if (keysPressed.includes(event.key)) keysPressed = keysPressed.filter((a) => { return a != event.key });
 }
