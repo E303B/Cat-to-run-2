@@ -3,7 +3,7 @@ class Runner {
     engine
     constructor(tps) {
         this.tps = tps;
-        this.engine = new GameEngine();
+        this.engine = new GameEngine(15);
     }
     tick() {
         this.engine.tick();
