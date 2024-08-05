@@ -12,7 +12,7 @@ class Entity {
     }
 
     collides() {
-        return (!runner.engine.tileMap.getTile(this.x, this.y).passable)||(!runner.engine.tileMap.getTile(this.x+0.5, this.y).passable)||(!runner.engine.tileMap.getTile(this.x-0.5, this.y).passable)||(!runner.engine.tileMap.getTile(this.x, this.y+0.5).passable)||(!runner.engine.tileMap.getTile(this.x, this.y-0.5).passable)
+        return (!runner.engine.tileMap.getTile(this.x, this.y).passable) || (!runner.engine.tileMap.getTile(this.x + 0.5, this.y).passable) || (!runner.engine.tileMap.getTile(this.x - 0.5, this.y).passable) || (!runner.engine.tileMap.getTile(this.x, this.y + 0.5).passable) || (!runner.engine.tileMap.getTile(this.x, this.y - 0.5).passable) || (!runner.engine.tileMap.getTile(this.x + 0.5, this.y + 0.5).passable) || (!runner.engine.tileMap.getTile(this.x + 0.5, this.y - 0.5).passable) || (!runner.engine.tileMap.getTile(this.x - 0.5, this.y + 0.5).passable) || (!runner.engine.tileMap.getTile(this.x - 0.5, this.y - 0.5).passable)
     }
 
     tryMove(dx, dy) {
@@ -34,7 +34,6 @@ class Player extends Entity {
         if (keysPressed.includes("d") || keysPressed.includes("D")) this.tryMove(+5 / runner.tps, 0);
         runner.engine.camX = this.x;
         runner.engine.camY = this.y;
-        console.log(this.x+" "+this.y);
     }
     render() {
         drawCircle("#281ac4", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2);
