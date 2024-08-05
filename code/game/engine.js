@@ -44,7 +44,7 @@ class GameEngine {
             direction = degreesToRadians(-90);
         }
         else if (side == 2) {
-            y = this.tileMap.height - 2;
+            y = this.tileMap.height - 3;
             x = randInt(1, this.tileMap.width - 2);
             direction = degreesToRadians(0);
         }
