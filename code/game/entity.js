@@ -62,6 +62,6 @@ class Saw extends Entity {
         if (this.moveInDirection(this.direction, runner.engine.difficulty)) runner.engine.toDelete.push(this);
     }
     render() {
-        drawCircle("#474747", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2.5);
+        drawCircle("#474747", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2);
     }
 }
