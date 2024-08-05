@@ -40,6 +40,11 @@ class Entity {
 }
 
 class Player extends Entity {
+    coinsCollected
+    constructor(x = 0, y = 0, direction = 0) {
+        super(x, y, direction);
+        this.coinsCollected = 0;
+    }
     tick() {
         if (keysPressed.includes("w") || keysPressed.includes("W")) this.tryMove(0, -5 / runner.tps);
         if (keysPressed.includes("s") || keysPressed.includes("S")) this.tryMove(0, 5 / runner.tps);
@@ -63,5 +68,19 @@ class Saw extends Entity {
     }
     render() {
         drawCircle("#474747", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2);
+    }
+}
+
+class Coin extends Entity {
+    tick() {
+        for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Player && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 0.75) this.giveCoins(runner.engine.entities[entity]);
+    }
+
+    giveCoins(player){
+        player.coinsCollected++;
+        runner.engine.toDelete.push(this);
+    }
+    render() {
+        drawCircle("#fbff00", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 4);
     }
 }
