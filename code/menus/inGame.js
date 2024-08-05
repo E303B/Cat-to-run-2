@@ -30,4 +30,11 @@ const unpause = new MenuElement(canvas.width * 0.75+50, 45, 40, 40, () => { },
     , () => { }
 )
 
-const inGameMenu = new Menu([restart, pause, unpause]);
+const counter = new MenuElement(canvas.width / 2, 110, 40, 40, () => { },
+function () {
+    drawText("$"+runner.engine.coinsCollected+" time: "+Math.floor(runner.engine.timeSurvived), "#fff", canvas.width / 2, 110, font, 32);
+}
+, () => { },() => { }, () => { }
+)
+
+const inGameMenu = new Menu([restart, pause, unpause, counter]);
