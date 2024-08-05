@@ -24,5 +24,5 @@ document.onkeydown = function (event) {
     if (!keysPressed.includes(event.key)) keysPressed.push(event.key);
 }
 document.onkeyup = function (event) {
-    if (keysPressed.includes(event.key)) keysPressed = keysPressed.filter((a) => { return a != event.key });
+    if (keysPressed.includes(event.key)) keysPressed.splice(keysPressed.indexOf(event.key), 1);
 }
