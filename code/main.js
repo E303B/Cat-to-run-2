@@ -3,14 +3,19 @@ class Runner {
     engine
     constructor(tps) {
         this.tps = tps;
-        this.engine = new GameEngine(15);
+        this.restart();
     }
     tick() {
         this.engine.tick();
+        inGameMenu.tick();
     }
     render(){
         fillBackground("#000");
         this.engine.render();
+        inGameMenu.render();
+    }
+    restart(){
+        this.engine = new GameEngine(15);
     }
 }
 

@@ -8,6 +8,7 @@ class GameEngine {
     timeUntilSawSpawn
     difficulty
     toDelete
+    paused
     constructor(size = 20, tileSize = 100, difficulty = 5) {
         this.camX = this.camY = 0;
         this.tileSize = tileSize;
@@ -18,6 +19,7 @@ class GameEngine {
         this.difficulty = difficulty;
         this.timeUntilSawSpawn = 5;
         this.toDelete=[];
+        this.paused=false;
     }
 
     generateSaw() {
@@ -62,6 +64,7 @@ class GameEngine {
         }
     }
     tick() {
+        if(this.paused)return;
         this.toDelete=[];
         for (let entity in this.entities) {
             this.entities[entity].tick();
