@@ -102,9 +102,9 @@ class GameEngine {
         this.coinsCollected = this.getCoins();
     }
     hasPlayers() {
-        this.entities.forEach(entity => {
-            if (entity instanceof Player) return true;
-        });
+        for (let entity in this.entities) {
+            if (this.entities[entity] instanceof Player) return true;
+        }
         return false;
     }
     getCoins() {
