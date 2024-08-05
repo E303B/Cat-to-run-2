@@ -75,7 +75,7 @@ class GameEngine {
         }
     }
     tick() {
-        if (this.paused) return;
+        if (this.paused || !this.hasPlayers()) return;
         this.toDelete = [];
         for (let entity in this.entities) {
             this.entities[entity].tick();
@@ -101,15 +101,17 @@ class GameEngine {
         }
         this.coinsCollected = this.getCoins();
     }
+    hasPlayers() {
+        this.entities.forEach(entity => {
+            if (entity instanceof Player) return true;
+        });
+        return false;
+    }
     getCoins() {
         let coins = 0;
-        let hasPlayers=false;
         this.entities.forEach(entity => {
-            if (entity instanceof Player) {
-                coins += entity.coinsCollected;
-                hasPlayers=true
-            }
+            if (entity instanceof Player) coins += entity.coinsCollected;
         });
-        return hasPlayers?coins:this.coinsCollected;
+        return coins;
     }
 }
