@@ -1,9 +1,14 @@
 class Entity {
     x
     y
-    constructor(x, y) {
+    direction
+    constructor(x = 0, y = 0, direction = 0) {
         this.x = x;
         this.y = y;
+        this.direction = direction;
+    }
+    moveInDirection(direction, force) {
+        return this.tryMove(Math.sin(direction) * force / runner.tps, -Math.cos(direction) * force / runner.tps);
     }
     tick() { }
 
@@ -16,13 +21,21 @@ class Entity {
     }
 
     tryMove(dx, dy) {
+        let touchedWall = false;
         const steps = 10;
         for (let step = 0; step < steps; step++) {
             this.x += dx / steps;
-            if (this.collides()) this.x -= dx / steps;
+            if (this.collides()) {
+                this.x -= dx / steps;
+                touchedWall = true;
+            }
             this.y += dy / steps;
-            if (this.collides()) this.y -= dy / steps;
+            if (this.collides()) {
+                touchedWall = true;
+                this.y -= dy / steps;
+            }
         }
+        return touchedWall;
     }
 }
 
@@ -34,8 +47,21 @@ class Player extends Entity {
         if (keysPressed.includes("d") || keysPressed.includes("D")) this.tryMove(+5 / runner.tps, 0);
         runner.engine.camX = this.x;
         runner.engine.camY = this.y;
+        for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Saw && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 1) this.collideWithSaw(runner.engine.entities[entity]);
+    }
+    collideWithSaw(saw) {
+        runner.engine.toDelete.push(this, saw);
     }
     render() {
         drawCircle("#281ac4", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2);
+    }
+}
+
+class Saw extends Entity {
+    tick() {
+        if (this.moveInDirection(this.direction, runner.engine.difficulty)) runner.engine.toDelete.push(this);
+    }
+    render() {
+        drawCircle("#474747", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2.5);
     }
 }
