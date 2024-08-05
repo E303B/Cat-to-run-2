@@ -5,7 +5,7 @@ canvas.height = window.innerHeight;
 let mousedown = false
 let mouseclick = false
 document.onmousedown = function (event) {
-    mouseclick = true
+    mouseclick = !mousedown
     mousedown = true
 }
 document.onmouseup = function (event) {
