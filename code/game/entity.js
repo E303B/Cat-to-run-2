@@ -84,6 +84,7 @@ class Coin extends Entity {
     giveCoins(player){
         player.coinsCollected++;
         runner.engine.toDelete.push(this);
+        runner.engine.coinsCollected++;
     }
     render() {
         drawCircle("#fbff00", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 4);
