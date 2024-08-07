@@ -41,9 +41,12 @@ class Entity {
 
 class Player extends Entity {
     coinsCollected
+    image
     constructor(x = 0, y = 0, direction = 0) {
         super(x, y, direction);
         this.coinsCollected = 0;
+        this.image=new Image(1, 1);
+        this.image.src = "./img/catsInGame/Base.png";
     }
     tick() {
         if (keysPressed.includes("w") || keysPressed.includes("W")) this.tryMove(0, -5 / runner.tps);
@@ -53,12 +56,14 @@ class Player extends Entity {
         runner.engine.camX = this.x;
         runner.engine.camY = this.y;
         for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Saw && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 1) this.collideWithSaw(runner.engine.entities[entity]);
+        this.direction=getDir((this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, mouseX, mouseY);
+        console.log(this.direction);
     }
     collideWithSaw(saw) {
         runner.engine.toDelete.push(this, saw);
     }
     render() {
-        drawCircle("#281ac4", (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, runner.engine.tileSize / 2);
+        drawRotated(this.image, (this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, this.direction, runner.engine.tileSize);
     }
 }
 

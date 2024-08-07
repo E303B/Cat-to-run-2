@@ -22,12 +22,12 @@ const drawCircle = function (color, x, y, radius) {
     ctx.closePath()
 }
 
-const drawRotated = function (context, image, x, y, degrees, size) {
-    context.save();
-    context.translate(x, y);
-    context.rotate(degrees * Math.PI / 180);
-    context.drawImage(image, -(image.width * size) / 2, -(image.height * size) / 2, image.width * size, image.height * size);
-    context.restore();
+const drawRotated = function (image, x, y, degrees, size) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(degrees * Math.PI / 180);
+    ctx.drawImage(image, -(image.width * size) / 2, -(image.height * size) / 2, size, size);
+    ctx.restore();
 }
 
 const drawText = function (text, color, x, y, font, size) {
