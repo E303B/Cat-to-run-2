@@ -59,7 +59,6 @@ class Player extends Entity {
         runner.engine.camY = this.y;
         for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Saw && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 1) this.collideWithSaw(runner.engine.entities[entity]);
         this.direction = getDir((this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, mouseX, mouseY);
-        console.log(this.direction);
     }
     collideWithSaw(saw) {
         runner.engine.toDelete.push(this, saw);
