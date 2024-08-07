@@ -11,7 +11,7 @@ class GameEngine {
     toDelete
     paused
     coinsCollected
-    constructor(size = 20, tileSize = 100, difficulty = 4) {
+    constructor(size = 20, tileSize = 100, difficulty = 1) {
         this.camX = this.camY = 0;
         this.tileSize = tileSize;
         this.tileMap = new TileMap(size, size);
