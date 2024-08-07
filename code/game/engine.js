@@ -99,19 +99,11 @@ class GameEngine {
         for (let entity in this.toDelete) {
             this.entities = this.entities.filter((a) => { return a != this.toDelete[entity] });
         }
-        this.coinsCollected = this.getCoins();
     }
     hasPlayers() {
         for (let entity in this.entities) {
             if (this.entities[entity] instanceof Player) return true;
         }
         return false;
-    }
-    getCoins() {
-        let coins = 0;
-        this.entities.forEach(entity => {
-            if (entity instanceof Player) coins += entity.coinsCollected;
-        });
-        return coins;
     }
 }
