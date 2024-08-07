@@ -42,21 +42,23 @@ class Entity {
 class Player extends Entity {
     coinsCollected
     image
+    speed
     constructor(x = 0, y = 0, direction = 0) {
         super(x, y, direction);
         this.coinsCollected = 0;
-        this.image=new Image(1, 1);
+        this.image = new Image(1, 1);
         this.image.src = "./img/catsInGame/Base.png";
+        this.speed = 5;
     }
     tick() {
-        if (keysPressed.includes("w") || keysPressed.includes("W")) this.tryMove(0, -5 / runner.tps);
-        if (keysPressed.includes("s") || keysPressed.includes("S")) this.tryMove(0, 5 / runner.tps);
-        if (keysPressed.includes("a") || keysPressed.includes("A")) this.tryMove(-5 / runner.tps, 0);
-        if (keysPressed.includes("d") || keysPressed.includes("D")) this.tryMove(+5 / runner.tps, 0);
+        if (keysPressed.includes("w") || keysPressed.includes("W")) this.tryMove(0, -this.speed / runner.tps);
+        if (keysPressed.includes("s") || keysPressed.includes("S")) this.tryMove(0, this.speed / runner.tps);
+        if (keysPressed.includes("a") || keysPressed.includes("A")) this.tryMove(-this.speed / runner.tps, 0);
+        if (keysPressed.includes("d") || keysPressed.includes("D")) this.tryMove(this.speed / runner.tps, 0);
         runner.engine.camX = this.x;
         runner.engine.camY = this.y;
         for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Saw && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 1) this.collideWithSaw(runner.engine.entities[entity]);
-        this.direction=getDir((this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, mouseX, mouseY);
+        this.direction = getDir((this.x - runner.engine.camX) * runner.engine.tileSize + canvas.width / 2, (this.y - runner.engine.camY) * runner.engine.tileSize + canvas.height / 2, mouseX, mouseY);
         console.log(this.direction);
     }
     collideWithSaw(saw) {
@@ -81,7 +83,7 @@ class Coin extends Entity {
         for (let entity in runner.engine.entities) if (runner.engine.entities[entity] instanceof Player && distanse(this.x, this.y, runner.engine.entities[entity].x, runner.engine.entities[entity].y) < 0.75) this.giveCoins(runner.engine.entities[entity]);
     }
 
-    giveCoins(player){
+    giveCoins(player) {
         player.coinsCollected++;
         runner.engine.toDelete.push(this);
         runner.engine.coinsCollected++;
